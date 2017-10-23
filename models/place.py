@@ -2,6 +2,7 @@
 """ holds class Place"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
+from sqlalchemy.orm import relationship
 import models
 
 
@@ -32,6 +33,9 @@ class Place(BaseModel, Base):
                                 default=0)
         latitude = Column(Float)
         longitude = Column(Float)
+        reviews = relationship("Review",
+                               backref="place",
+                               cascade="delete")
     else:
         city_id = ""
         user_id = ""
@@ -40,6 +44,12 @@ class Place(BaseModel, Base):
         number_bathrooms = 0
         max_guest = 0
         price_by_night = 0
+
+        @property
+        def reviews(self):
+            """Returns respective list of reviews"""
+            all_reviews = models.storage.all(Review)
+            return list(filter((lambda c: c.place_id == self.id), all_reviews))
 
     def __init__(self, *args, **kwargs):
         """initializes Place"""
