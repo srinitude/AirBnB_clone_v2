@@ -3,7 +3,7 @@
 initialize the models package
 """
 
-import os
+from os import environ
 
 if environ['HBNB_TYPE_STORAGE'] == 'db':
     from models.engine.db_storage import DBStorage
