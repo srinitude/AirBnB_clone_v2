@@ -2,14 +2,17 @@
 """ holds class Place"""
 from models.base_model import BaseModel
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
+import models
 
 class Place(BaseModel):
     """Representation of Place """
+    __tablename__ = "places"
+
     city_id = Column(String(60),
-                     ForeignKey"cities.id",
+                     ForeignKey("cities.id"),
                      nullable=False)
     user_id = Column(String(60),
-                     ForeignKey"user.id",
+                     ForeignKey("user.id"),
                      nullable=False)
     name =  Column(String(128), nullable=False)
     description = Column(String(1024), nullable=False)

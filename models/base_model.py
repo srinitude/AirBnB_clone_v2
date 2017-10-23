@@ -10,7 +10,11 @@ import models
 import uuid
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
-Base = declarative_base()
+if models.storage_type == "db":
+    Base = declarative_base()
+else:
+    class Base:
+        pass
 
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""
@@ -42,6 +46,11 @@ class BaseModel:
         models.storage.save()
 
     def __str__(self):
+        """String representation of the BaseModel class"""
+        return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
+                                         self.__dict__)
+
+    def __repr__(self):
         """String representation of the BaseModel class"""
         return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
                                          self.__dict__)

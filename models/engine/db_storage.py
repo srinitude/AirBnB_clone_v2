@@ -2,27 +2,35 @@
 """
 Contains the DBStorage class
 """
-from os import environ
+from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 from models.amenity import Amenity
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from sqlalchemy.exc import InvalidRequestError
 
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
 
 class DBStorage:
     """ """
-    __engine == None
-    __session == None
+    __engine = None
+    __session = None
+    __objects = {}
 
     def __init__(self):
+        user = getenv('HBNB_MYSQL_USER')
+        pwd = getenv('HBNB_MYSQL_PWD')
+        host = getenv('HBNB_MYSQL_HOST')
+        db = getenv('HBNB_MYSQL_DB')
+        port = 3306
+
         dev = ('mysql+mysqldb://{}:{}@{}:{}/{}'.format(user,
                                                        pwd,
                                                        host,
@@ -38,29 +46,29 @@ class DBStorage:
         #                                port,
         #                                db)
 
-        user = environ.get['HBNB_MYSQL_USER']
-        pwd = environ.get['HBNB_MYSQL_PWD']
-        host = environ.get['HBNB_MYSQL_HOST']
-        db = environ.get['HBNB_MYSQL_DB']
-        port = 3306
-
-        if environ.get['HBNB_ENV'] == 'test':
+        if getenv('HBNB_ENV') == 'test':
                Base.metadata.drop_all(self.__engine)
 
-        Session = sessionmaker(bind=some_engine)
-        self.__session = Session()
 
-
-    def all(self, cls=None)::
-        """ """
-        if cls == None:
-            #query all types of objects:
-            #(User, State, City, Amenity, Place and Review)
-
-        # must return a dictionary: (like FileStorage)
-            # key = <class-name>.<object-id>
-            # value = object
-
+    def all(self, cls=None):
+        """Gets all the objects"""
+        self.__objects.clear()
+        if not cls:
+            for key, value in classes.items():
+                try:
+                    objects = self.__session.query(value).all()
+                    for obj in objects:
+                        obj_key = obj.__class__.__name__ + "." + obj.id
+                        self.__objects[obj_key] = obj
+                except InvalidRequestError:
+                    pass
+            return self.__objects
+        else:
+            objects = self.__session.query(cls).all()
+            for obj in objects:
+                obj_key = obj.__class__.__name__ + "." + obj.id
+                self.__objects[obj_key] = obj
+            return self.__objects
 
     def new(self, obj):
         """ Adds object to the current database session"""
@@ -74,12 +82,13 @@ class DBStorage:
 
     def delete(self, obj=None):
         """ Delete from the current database session obj if not None """
-        if obj not None:
+        if obj is not None:
                self.__session.delete(obj)
 
     def reload(self):
         """ Creates all tables in the database """
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine,
-                                       expire_on_commit = false)
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
+        self.__session = Session()

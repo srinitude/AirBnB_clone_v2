@@ -23,7 +23,3 @@ class State(BaseModel, Base):
         def cities(self):
             all_cities = models.storage.all(City)
             return list(filter((lambda c: c.state_id == self.id), all_cities))
-
-    def __init__(self, *args, **kwargs):
-        """initializes state"""
-        super().__init__(*args, **kwargs)
