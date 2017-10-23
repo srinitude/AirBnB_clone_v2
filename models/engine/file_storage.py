@@ -24,7 +24,7 @@ class FileStorage:
     # dictionary - empty but will store all objects by <class name>.id
     __objects = {}
 
-    def all(self):
+    def all(self, cls=None):
         """returns the dictionary __objects"""
         return self.__objects
 
@@ -51,3 +51,11 @@ class FileStorage:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
         except:
             pass
+
+
+    def delete(self, obj=None):
+        """delete obj from __objects if it exists"""
+        obj = obj.__class__.__name__ + '.' + obj.id
+        print("obj = {}".format(obj))
+        if obj in self.__objects:
+            del self.__objects[obj]
