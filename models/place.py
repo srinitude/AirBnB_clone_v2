@@ -5,6 +5,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
 
 class Place(BaseModel):
     """Representation of Place """
+    __tablename__ = "places"
+
     city_id = Column(String(60),
                      ForeignKey"cities.id",
                      nullable=False)
