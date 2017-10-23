@@ -1,9 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """ holds class City"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy.orm import relationship
 import models
 import sqlalchemy
+
 
 class City(BaseModel, Base):
     """Representation of city """
@@ -11,9 +13,12 @@ class City(BaseModel, Base):
         __tablename__ = "cities"
 
         name = Column(String(128),
-                  nullable=False)
+                      nullable=False)
         state_id = Column(String(60),
                           ForeignKey("states.id"))
+        places = relationship("Place",
+                              backref="cities",
+                              cascade="delete")
     else:
         name = ""
         state_id = ""

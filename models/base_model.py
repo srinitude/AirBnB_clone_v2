@@ -16,6 +16,7 @@ else:
     class Base:
         pass
 
+
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""
 
@@ -28,7 +29,7 @@ class BaseModel:
     updated_at = Column(DateTime,
                         nullable=False,
                         default=datetime.utcnow())
-    
+
     def __init__(self, *args, **kwargs):
         """Initialization of the base model"""
         if kwargs:
@@ -64,7 +65,6 @@ class BaseModel:
     def delete(self):
         """Deletes itself from the file storage"""
         models.storage.delete(self)
-        
 
     def to_dict(self):
         """returns a dictionary containing all keys/values of the instance"""

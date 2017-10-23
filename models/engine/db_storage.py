@@ -18,6 +18,7 @@ from sqlalchemy.exc import InvalidRequestError
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
 
+
 class DBStorage:
     """ """
     __engine = None
@@ -47,8 +48,7 @@ class DBStorage:
         #                                db)
 
         if getenv('HBNB_ENV') == 'test':
-               Base.metadata.drop_all(self.__engine)
-
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Gets all the objects"""
@@ -74,16 +74,14 @@ class DBStorage:
         """ Adds object to the current database session"""
         self.__session.add(obj)
 
-
     def save(self):
         """ Commits all changes of the current database session"""
         self.__session.commit()
 
-
     def delete(self, obj=None):
         """ Delete from the current database session obj if not None """
         if obj is not None:
-               self.__session.delete(obj)
+            self.__session.delete(obj)
 
     def reload(self):
         """ Creates all tables in the database """

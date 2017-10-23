@@ -7,13 +7,18 @@ class Review(BaseModel):
     """Representation of Review """
     __tablename__ = "reviews"
 
-    place_id = Column(String(60),
-                      ForeignKey"place_id",
-                      nullable=False)
-    user_id = Column(String(60),
-                      ForeignKey"user_id",
-                      nullable=False)
-    text = Column(String(1024),nullable=False)
+    if models.storage_type == "db":
+        place_id = Column(String(60),
+                          ForeignKey"place_id",
+                          nullable=False)
+        user_id = Column(String(60),
+                         ForeignKey"user_id",
+                         nullable=False)
+        text = Column(String(1024),nullable=False)
+    else:
+        place_id = ""
+        user_id = ""
+        test = ""
 
     def __init__(self, *args, **kwargs):
         """initializes Review"""
