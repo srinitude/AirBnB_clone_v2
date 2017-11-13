@@ -35,12 +35,27 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Creates a new instance of a class"""
-        args = shlex.split(arg)
+        sh = shlex.shlex(arg)
+        args = []
+        while True:
+            token = sh.get_token()
+            if not token:
+                break
+            args.append(token)
+        print(args)
         if len(args) == 0:
             print("** class name missing **")
             return False
         if args[0] in classes:
             instance = classes[args[0]]()
+            number_of_args = len(args)
+            for i in range(1, number_of_args):
+                if args[i] == "=":
+                    before = i - 1
+                    after = i + 1
+                    key = args[before]
+                    val = args[after]
+                    setattr(self, key, val)
         else:
             print("** class doesn't exist **")
             return False
