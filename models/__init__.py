@@ -2,14 +2,14 @@
 """
 initialize the models package
 """
+from os import getenv
 
-from os import environ
+storage_type = getenv('HBNB_TYPE_STORAGE')
 
-if environ['HBNB_TYPE_STORAGE'] == 'db':
+if storage_type == 'db':
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
-    storage.reload()
 else:
     from models.engine.file_storage import FileStorage
     storage = FileStorage()
-    storage.reload()
+storage.reload()
