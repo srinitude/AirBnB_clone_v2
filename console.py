@@ -42,7 +42,6 @@ class HBNBCommand(cmd.Cmd):
             if not token:
                 break
             args.append(token)
-        print(args)
         if len(args) == 0:
             print("** class name missing **")
             return False
