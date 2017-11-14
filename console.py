@@ -141,9 +141,8 @@ class HBNBCommand(cmd.Cmd):
             print(", ".join(obj_list), end="")
             print("]")
         elif args[0] in classes:
-            for key in models.storage.all():
-                if args[0] in key:
-                    obj_list.append(str(models.storage.all()[key]))
+            for value in models.storage.all(eval(args[0])).values():
+                obj_list.append(str(value))
             print("[", end="")
             print(", ".join(obj_list), end="")
             print("]")
