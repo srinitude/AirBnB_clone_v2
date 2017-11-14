@@ -52,10 +52,8 @@ class FileStorage:
         except:
             pass
 
-
     def delete(self, obj=None):
         """delete obj from __objects if it exists"""
         obj = obj.__class__.__name__ + '.' + obj.id
-        print("obj = {}".format(obj))
         if obj in self.__objects:
             del self.__objects[obj]
