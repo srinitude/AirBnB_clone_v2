@@ -2,6 +2,7 @@
 """ holds class Place"""
 from models.base_model import BaseModel
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
+import models
 
 class Place(BaseModel):
     """Representation of Place """
