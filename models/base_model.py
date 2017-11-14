@@ -54,6 +54,8 @@ class BaseModel:
         models.storage.save()
 
     def delete(self):
+        """Deletes itself from the file storage"""
+        models.storage.delete(self)
         
 
     def to_dict(self):
