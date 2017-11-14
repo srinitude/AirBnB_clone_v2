@@ -71,13 +71,19 @@ class HBNBCommand(cmd.Cmd):
                                 new_value += value[i]
                         is_string = True
                     else:
-                        p_idx = after + 1
-                        if args[p_idx] == ".":
-                            d_idx = p_idx + 1
-                            new_value = float(value + args[p_idx] + args[d_idx])
+                        p = after + 1
+                        if args[p] == ".":
+                            d = p + 1
+                            try:
+                                new_value = float(value + args[p] + args[d])
+                            except:
+                                break
                             is_float = True
                     if not is_float and not is_string:
-                        new_value = int(value)
+                        try:
+                            new_value = int(value)
+                        except:
+                            break
                     setattr(instance, key, new_value)
         else:
             print("** class doesn't exist **")
