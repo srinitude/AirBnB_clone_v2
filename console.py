@@ -71,10 +71,11 @@ class HBNBCommand(cmd.Cmd):
                                 new_value += value[i]
                         is_string = True
                     else:
-                        for i in range(length):
-                            if value[i] == ".":
-                                new_value = float(value)
-                                is_float = True
+                        p_idx = after + 1
+                        if args[p_idx] == ".":
+                            d_idx = p_idx + 1
+                            new_value = float(value + args[p_idx] + args[d_idx])
+                            is_float = True
                     if not is_float and not is_string:
                         new_value = int(value)
                     setattr(instance, key, new_value)
