@@ -42,7 +42,6 @@ class HBNBCommand(cmd.Cmd):
             if not token:
                 break
             args.append(token)
-        print(args)
         if len(args) == 0:
             print("** class name missing **")
             return False
@@ -78,8 +77,6 @@ class HBNBCommand(cmd.Cmd):
                                 is_float = True
                     if not is_float and not is_string:
                         new_value = int(value)
-                    print(type(new_value))
-                    print(new_value)
                     setattr(instance, key, new_value)
         else:
             print("** class doesn't exist **")
