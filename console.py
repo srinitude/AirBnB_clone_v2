@@ -54,8 +54,33 @@ class HBNBCommand(cmd.Cmd):
                     before = i - 1
                     after = i + 1
                     key = args[before]
-                    val = args[after]
-                    setattr(self, key, val)
+                    value = args[after]
+                    length = len(value)
+                    is_float = False
+                    is_string = False
+                    new_value = ""
+                    if value[0] == "\"":
+                        for i in range(length):
+                            if value[i] == '"':
+                                if i != 0 and i != length - 1:
+                                    new_value += '\"'
+                                else:
+                                    continue
+                            elif value[i] == "_":
+                                new_value += " "
+                            else:
+                                new_value += value[i]
+                        is_string = True
+                    else:
+                        for i in range(length):
+                            if value[i] == ".":
+                                new_value = float(value)
+                                is_float = True
+                    if not is_float and not is_string:
+                        new_value = int(value)
+                    print(type(new_value))
+                    print(new_value)
+                    setattr(instance, key, new_value)
         else:
             print("** class doesn't exist **")
             return False

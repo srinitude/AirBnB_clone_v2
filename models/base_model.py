@@ -30,40 +30,6 @@ class BaseModel:
             models.storage.new(self)
             models.storage.save()
 
-    def __setattr__(self, attr, value):
-        if attr == "id" or attr == "created_at" or attr == "updated_at":
-            print(attr)
-            print(value)
-            super().__setattr__(attr, value)
-            return
-        print(attr)
-        print(value)
-        length = len(value)
-        is_float = False
-        is_string = False
-        new_value = ""
-        if value[0] == "\"":
-            for i in range(length):
-                if value[i] == '"':
-                    if i != 0 and i != length - 1:
-                        new_value += '\"'
-                    else:
-                        new_value += '"'
-                elif value[i] == "_":
-                    new_value += " "
-                else:
-                    new_value += value[i]
-            is_string = True
-        else:
-            for i in range(length):
-                if value[i] == ".":
-                    new_value = float(value)
-                    is_float = True
-        if not is_float and not is_string:
-            new_value = int(value)
-        super().__setattr__(attr, new_value)
-            
-
     def __str__(self):
         """String representation of the BaseModel class"""
         return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
