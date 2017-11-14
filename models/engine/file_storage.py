@@ -6,10 +6,10 @@ Contains the FileStorage class
 import json
 from models.amenity import Amenity
 from models.base_model import BaseModel
+from models.state import State
 from models.city import City
 from models.place import Place
 from models.review import Review
-from models.state import State
 from models.user import User
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
@@ -26,7 +26,11 @@ class FileStorage:
 
     def all(self, cls=None):
         """returns the dictionary __objects"""
-        return self.__objects
+        if cls is None:
+            return self.__objects
+        cls_name = cls.__name__
+        return dict(filter((lambda o: o.id.split(".")[0] == cls_name),
+                           self.__objects))
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
