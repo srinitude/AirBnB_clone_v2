@@ -72,13 +72,16 @@ class HBNBCommand(cmd.Cmd):
                         is_string = True
                     else:
                         p = after + 1
-                        if args[p] == ".":
-                            d = p + 1
-                            try:
-                                new_value = float(value + args[p] + args[d])
-                            except:
-                                break
-                            is_float = True
+                        try:
+                            if args[p] == ".":
+                                d = p + 1
+                                try:
+                                    new_value = float(value + args[p] + args[d])
+                                except:
+                                    break
+                                is_float = True
+                        except:
+                            pass
                     if not is_float and not is_string:
                         try:
                             new_value = int(value)
