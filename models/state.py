@@ -8,9 +8,7 @@ import os
 
 class State(BaseModel, Base):
     """Representation of state """
-
-    storage_type = os.getenv("HBNB_TYPE_STORAGE")
-    if storage_type == "db":
+    if models.storage_type == "db":
         __tablename__ = "states"
 
         name = Column(String(128),
@@ -23,9 +21,8 @@ class State(BaseModel, Base):
 
         @property
         def cities(self):
-            objects = models.storage.all()
-            for object in objects:
-                
+            all_cities = models.storage.all(City)
+            return list(filter((lambda c: c.state_id == self.id), all_cities))
 
     def __init__(self, *args, **kwargs):
         """initializes state"""

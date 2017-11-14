@@ -12,7 +12,6 @@ import uuid
 time = "%Y-%m-%dT%H:%M:%S.%f"
 Base = declarative_base()
 
-
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""
 
