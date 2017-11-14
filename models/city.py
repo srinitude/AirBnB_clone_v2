@@ -5,12 +5,16 @@ from sqlalchemy import Column, String, ForeignKey
 
 class City(BaseModel, Base):
     """Representation of city """
-    __tablename__ = "cities"
+    
+    if models.storage_type == "db":
+        __tablename__ = "cities"
 
-    name = Column(String(128),
+        name = Column(String(128),
                   nullable=False)
-    state_id = Column(String(60),
-                      ForeignKey("states.id"))
+        state_id = Column(String(60),
+                          ForeignKey("states.id"))
+    else:
+        
 
     def __init__(self, *args, **kwargs):
         """initializes city"""
