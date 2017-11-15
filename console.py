@@ -57,18 +57,18 @@ class HBNBCommand(cmd.Cmd):
                     length = len(value)
                     is_float = False
                     is_string = False
-                    new_value = ""
+                    new_val = ""
                     if value[0] == "\"":
                         for i in range(length):
                             if value[i] == '"':
                                 if i != 0 and i != length - 1:
-                                    new_value += '\"'
+                                    new_val += '\"'
                                 else:
                                     continue
                             elif value[i] == "_":
-                                new_value += " "
+                                new_val += " "
                             else:
-                                new_value += value[i]
+                                new_val += value[i]
                         is_string = True
                     else:
                         p = after + 1
@@ -76,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
                             if args[p] == ".":
                                 d = p + 1
                                 try:
-                                    new_value = float(value + args[p] + args[d])
+                                    new_val = float(value + args[p] + args[d])
                                 except:
                                     break
                                 is_float = True

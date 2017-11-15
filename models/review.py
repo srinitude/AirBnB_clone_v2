@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 import models
 
+
 class Review(BaseModel, Base):
     """Representation of Review """
     if models.storage_type == "db":
