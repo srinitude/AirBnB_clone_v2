@@ -10,11 +10,13 @@ place_amenity = Table('association', Base.metadata,
                       Column("place_id",
                              String(80),
                              ForeignKey("places.id"),
-                             primary_key=True),
+                             primary_key=True,
+                             nullable=False),
                       Column("amenity_id",
                              String(80),
                              ForeignKey("amenities.id"),
-                             primary_key=True)
+                             primary_key=True,
+                             nullable=False)
                 )
 
 
@@ -51,6 +53,7 @@ class Place(BaseModel, Base):
 
         amenities = relationship("Amenity",
                                  secondary=place_amenity,
+                                 back_populates="places",
                                  viewonly=False)
 
         # place_amenity = Table('association', Base.metadata,
