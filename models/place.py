@@ -52,7 +52,7 @@ class Place(BaseModel, Base):
 
         amenities = relationship("Amenity",
                                  secondary=place_amenity,
-                                 back_populates="places",
+                                 backref="place_amenities",
                                  viewonly=False)
 
         # place_amenity = Table('association', Base.metadata,
