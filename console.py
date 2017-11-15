@@ -84,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
                             pass
                     if not is_float and not is_string:
                         try:
-                            new_value = int(value)
+                            new_val = int(value)
                         except:
                             break
                     setattr(instance, key, new_value)
