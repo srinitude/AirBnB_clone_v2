@@ -7,17 +7,30 @@ from sqlalchemy.orm import relationship
 import models
 
 if models.storage_type == "db":
-    place_amenity = Table('association', Base.metadata,
-                          Column("place_id",
-                                 String(80),
-                                 ForeignKey("places.id"),
-                                 primary_key=True,
-                                 nullable=False),
-                          Column("amenity_id",
-                                 String(80),
-                                 ForeignKey("amenities.id"),
-                                 primary_key=True,
-                                 nullable=False))
+#    place_amenity = Table('association', Base.metadata,
+#                          Column("place_id",
+#                                 String(80),
+#                                 ForeignKey("places.id"),
+#                                 primary_key=True,
+#                                 nullable=False),
+#                          Column("amenity_id",
+#                                 String(80),
+#                                 ForeignKey("amenities.id"),
+#                                 primary_key=True,
+#                                 nullable=False))
+
+
+    class PlaceAmenity(Base):
+        __tablename__ = "place_amenity"
+        place_id = Column(String(80),
+                          ForeignKey("places.id"),
+                          primary_key=True,
+                          nullable=False)
+        amenity_id = Column(String(80),
+                            ForeignKey("amenities.id"),
+                            primary_key=True,
+                            nullable=False)
+        metadata = Base.metadata        
 
 
 class Place(BaseModel, Base):
@@ -50,24 +63,9 @@ class Place(BaseModel, Base):
         reviews = relationship("Review",
                                backref="place",
                                cascade="delete")
-
         amenities = relationship("Amenity",
-                                 secondary=place_amenity,
-                                 backref="place_amenities",
+                                 secondary="place_amenity",
                                  viewonly=False)
-
-        # place_amenity = Table('association', Base.metadata,
-        #                       Column("place_id",
-        #                              string(80),
-        #                              ForeighKey("places.id"),
-        #                              nullable=False,
-        #                              primary_key=True)
-        #                       Column("amenity_id",
-        #                              string(80),
-        #                              ForeignKey("amenities.id"),
-        #                              nullable=False,
-        #                              primary_key=True)
-
     else:
         city_id = ""
         user_id = ""
