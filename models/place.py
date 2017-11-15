@@ -1,22 +1,22 @@
 #!/usr/bin/python3
 """ holds class Place"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Table, Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Float
 from sqlalchemy.orm import relationship
 import models
 
-
 place_amenity = Table('association', Base.metadata,
                       Column("place_id",
-                             string(80),
-                             ForeighKey("places.id"),
-                             nullable=False,
-                             primary_key=True)
+                             String(80),
+                             ForeignKey("places.id"),
+                             primary_key=True),
                       Column("amenity_id",
-                             string(80),
+                             String(80),
                              ForeignKey("amenities.id"),
-                             nullable=False,
                              primary_key=True)
+                )
+
 
 class Place(BaseModel, Base):
     """Representation of Place """
@@ -49,7 +49,7 @@ class Place(BaseModel, Base):
                                backref="place",
                                cascade="delete")
 
-        amenities = relationship("Amentity",
+        amenities = relationship("Amenity",
                                  secondary=place_amenity,
                                  viewonly=False)
 
@@ -79,6 +79,12 @@ class Place(BaseModel, Base):
             """Returns respective list of reviews"""
             all_reviews = models.storage.all(Review)
             return list(filter((lambda c: c.place_id == self.id), all_reviews))
+
+        @property
+        def amenities(self):
+            """Returns respective list of reviews"""
+            amenities = models.storage.all(Amenity)
+            return list(filter((lambda c: c.place_id == self.id), amenities))
 
     def __init__(self, *args, **kwargs):
         """initializes Place"""
