@@ -87,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
                             new_val = int(value)
                         except:
                             break
-                    setattr(instance, key, new_value)
+                    setattr(instance, key, new_val)
         else:
             print("** class doesn't exist **")
             return False
@@ -141,7 +141,8 @@ class HBNBCommand(cmd.Cmd):
             print(", ".join(obj_list), end="")
             print("]")
         elif args[0] in classes:
-            for value in models.storage.all(eval(args[0])).values():
+            cls = eval(args[0])
+            for value in models.storage.all(cls).values():
                 obj_list.append(str(value))
             print("[", end="")
             print(", ".join(obj_list), end="")

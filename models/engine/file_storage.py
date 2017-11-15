@@ -29,8 +29,11 @@ class FileStorage:
         if cls is None:
             return self.__objects
         cls_name = cls.__name__
-        return dict(filter((lambda o: o.id.split(".")[0] == cls_name),
-                           self.__objects))
+        matches = {}
+        for key, obj in self.__objects.items():
+            if key.split(".")[0] == cls_name:
+                matches[key] = obj
+        return matches
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
