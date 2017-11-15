@@ -4,7 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, Numeric, String, ForeignKey
 from sqlalchemy.orm import relationship
 import models
-from models.place import place_amenity, Place
+from models.place import place_amenity
 
 class Amenity(BaseModel, Base):
     """Representation of Amenity """
