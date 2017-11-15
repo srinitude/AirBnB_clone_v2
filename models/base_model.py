@@ -10,7 +10,11 @@ import models
 import uuid
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
-Base = declarative_base()
+if models.storage_type == "db":
+    Base = declarative_base()
+else:
+    class Base:
+        pass
 
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""

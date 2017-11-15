@@ -59,7 +59,7 @@ class DBStorage:
                     objects = self.__session.query(value).all()
                     for obj in objects:
                         obj_key = obj.__class__.__name__ + "." + obj.id
-                        self.__objects[obj_key] = object
+                        self.__objects[obj_key] = obj
                 except InvalidRequestError:
                     pass
             return self.__objects
@@ -67,7 +67,7 @@ class DBStorage:
             objects = self.__session.query(cls).all()
             for obj in objects:
                 obj_key = obj.__class__.__name__ + "." + obj.id
-                self.__objects[obj_key] = object
+                self.__objects[obj_key] = obj
             return self.__objects
 
     def new(self, obj):
