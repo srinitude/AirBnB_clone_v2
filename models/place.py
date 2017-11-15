@@ -13,7 +13,7 @@ class Place(BaseModel, Base):
         city_id = Column(String(60),
                          ForeignKey("cities.id"))
         user_id = Column(String(60),
-                         ForeignKey("user.id"))
+                         ForeignKey("users.id"))
         name = Column(String(128),
                       nullable=False)
         description = Column(String(1024),
