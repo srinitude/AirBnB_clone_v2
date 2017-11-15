@@ -30,10 +30,8 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer,
                                 nullable=False,
                                 default=0)
-        latitude = Column(Float,
-                          nullable=True)
-        longitude = Column(Float,
-                           nullable=True)
+        latitude = Column(Float)
+        longitude = Column(Float)
     else:
         city_id = ""
         user_id = ""
