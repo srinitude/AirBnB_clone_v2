@@ -1,10 +1,22 @@
 #!/usr/bin/python3
 """ holds class Place"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 import models
 
+
+place_amenity = Table('association', Base.metadata,
+                      Column("place_id",
+                             string(80),
+                             ForeighKey("places.id"),
+                             nullable=False,
+                             primary_key=True)
+                      Column("amenity_id",
+                             string(80),
+                             ForeignKey("amenities.id"),
+                             nullable=False,
+                             primary_key=True)
 
 class Place(BaseModel, Base):
     """Representation of Place """
@@ -36,6 +48,23 @@ class Place(BaseModel, Base):
         reviews = relationship("Review",
                                backref="place",
                                cascade="delete")
+
+        amenities = relationship("Amentity",
+                                 secondary=place_amenity,
+                                 viewonly=False)
+
+        # place_amenity = Table('association', Base.metadata,
+        #                       Column("place_id",
+        #                              string(80),
+        #                              ForeighKey("places.id"),
+        #                              nullable=False,
+        #                              primary_key=True)
+        #                       Column("amenity_id",
+        #                              string(80),
+        #                              ForeignKey("amenities.id"),
+        #                              nullable=False,
+        #                              primary_key=True)
+
     else:
         city_id = ""
         user_id = ""
