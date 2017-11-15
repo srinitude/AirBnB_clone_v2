@@ -7,19 +7,6 @@ from sqlalchemy.orm import relationship
 import models
 
 if models.storage_type == "db":
-#    place_amenity = Table('association', Base.metadata,
-#                          Column("place_id",
-#                                 String(80),
-#                                 ForeignKey("places.id"),
-#                                 primary_key=True,
-#                                 nullable=False),
-#                          Column("amenity_id",
-#                                 String(80),
-#                                 ForeignKey("amenities.id"),
-#                                 primary_key=True,
-#                                 nullable=False))
-
-
     class PlaceAmenity(Base):
         __tablename__ = "place_amenity"
         place_id = Column(String(80),
@@ -30,7 +17,7 @@ if models.storage_type == "db":
                             ForeignKey("amenities.id"),
                             primary_key=True,
                             nullable=False)
-        metadata = Base.metadata        
+        metadata = Base.metadata
 
 
 class Place(BaseModel, Base):
