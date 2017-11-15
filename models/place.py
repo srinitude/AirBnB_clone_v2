@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float
 import models
 
+
 class Place(BaseModel, Base):
     """Representation of Place """
     if models.storage_type == "db":
@@ -13,8 +14,8 @@ class Place(BaseModel, Base):
                          ForeignKey("cities.id"))
         user_id = Column(String(60),
                          ForeignKey("user.id"))
-        name =  Column(String(128),
-                       nullable=False)
+        name = Column(String(128),
+                      nullable=False)
         description = Column(String(1024),
                              nullable=True)
         number_rooms = Column(Integer,
