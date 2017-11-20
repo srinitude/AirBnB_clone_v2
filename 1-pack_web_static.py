@@ -17,7 +17,7 @@ def do_pack():
         os.makedirs("versions")
     file = "versions/web_static_{}.tgz".format(today)
     try:
-        val = local("tar -cvzf {} web_static".format(file))
+        local("tar -cvzf {} web_static".format(file))
         return file
     except:
         return None
