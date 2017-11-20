@@ -11,7 +11,12 @@ def do_pack():
     Packages up web static files into a tarball
     """
     date_fmt = "%Y%m%d%H%M%S"
-    todays_date = datetime.now().strftime(date_fmt)
+    today = datetime.now().strftime(date_fmt)
     if not os.path.isdir("versions"):
         os.makedirs("versions")
-    local("tar -cvzf versions/web_static_{}.tgz web_static".format(todays_date))
+    file = "versions/web_static_{}.tgz".format(today)
+    try:
+        val = local("tar -cvzf {} web_static".format(file))
+        return file
+    except:
+        return None
