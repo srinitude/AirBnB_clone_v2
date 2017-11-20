@@ -6,6 +6,7 @@ from fabric.api import local
 from datetime import datetime
 import os
 
+
 def do_pack():
     """
     Packages up web static files into a tarball
