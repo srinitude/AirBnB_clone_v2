@@ -51,8 +51,7 @@ def print_int(n):
     """
     Prints an int if number passed is an int
     """
-    if type(n) is int:
-        return "{} is a number".format(n)
+    return "{} is a number".format(n)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
