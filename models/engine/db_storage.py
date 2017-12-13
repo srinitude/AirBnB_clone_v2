@@ -23,6 +23,7 @@ class DBStorage:
     """ """
     __engine = None
     __session = None
+    __session_cls = None
     __objects = {}
 
     def __init__(self):
@@ -64,6 +65,7 @@ class DBStorage:
                     pass
             return self.__objects
         else:
+            cls = classes[cls]
             objects = self.__session.query(cls).all()
             for obj in objects:
                 obj_key = obj.__class__.__name__ + "." + obj.id
@@ -89,4 +91,9 @@ class DBStorage:
         session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
+        self.__session_cls = Session
         self.__session = Session()
+
+    def close(self):
+        """Closes DB Storage"""
+        self.__session_cls.remove()
