@@ -48,6 +48,9 @@ def python_with_text(text):
 
 @app.route("/number/<int:n>", strict_slashes=False)
 def print_int(n):
+    """
+    Prints an int if number passed is an int
+    """
     if type(n) is int:
         return "{} is a number".format(n)
 
