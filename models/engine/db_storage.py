@@ -97,3 +97,4 @@ class DBStorage:
     def close(self):
         """Closes DB Storage"""
         self.__scoped_session.remove()
+        self.reload()
