@@ -23,7 +23,7 @@ class DBStorage:
     """ """
     __engine = None
     __session = None
-    __session_cls = None
+    __scoped_session = None
     __objects = {}
 
     def __init__(self):
@@ -91,9 +91,9 @@ class DBStorage:
         session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
-        self.__session_cls = Session
+        self.__scoped_session = Session
         self.__session = Session()
 
     def close(self):
         """Closes DB Storage"""
-        self.__session_cls.remove()
+        self.__scoped_session.remove()
