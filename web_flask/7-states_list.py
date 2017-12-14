@@ -4,6 +4,7 @@ Return list of available states either from file or DB storage
 """
 from models import storage
 from flask import Flask, render_template
+from models.state import State
 import models
 
 
@@ -38,9 +39,11 @@ def display_states():
     states = []
     if models.storage_type == "db":
         results = storage.all("State").values()
-        for result in results:
-            new_state = StateInfo(result.id, result.name)
-            states.append(new_state)
+    else:
+        results = storage.all(State).values()
+    for result in results:
+        new_state = StateInfo(result.id, result.name)
+        states.append(new_state)
     return render_template("7-states_list.html",
                            states=states)
 
