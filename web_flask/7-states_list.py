@@ -44,6 +44,7 @@ def display_states():
     for result in results:
         new_state = StateInfo(result.id, result.name)
         states.append(new_state)
+    states.sort(key=lambda s: s.name)
     return render_template("7-states_list.html",
                            states=states)
 
